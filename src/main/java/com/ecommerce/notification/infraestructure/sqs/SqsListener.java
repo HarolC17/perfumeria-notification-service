@@ -50,6 +50,9 @@ public class SqsListener {
                         // ✅ Intentar enviar SMS (si es null, simplemente no lo enviará)
                         smsSender.enviarSms(evento.getMensaje(), evento.getNumeroTelefono());
 
+                        // Simula una demora antes de eliminar el mensaje
+                        Thread.sleep(5000); // Espera 5 segundos
+
                         // emailSender.enviarEmail(evento.getEmail(), evento.getTipo(), evento.getMensaje());
 
                         // ✅ Eliminar mensaje de la cola SIEMPRE (incluso si el SMS no se envió)
