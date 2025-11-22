@@ -27,7 +27,7 @@ public class SqsListener {
     private final ObjectMapper objectMapper;
     private final SnsSmsSender smsSender;
     private final SmtpEmailSender emailSender;
-    private MailtrapApiSender mailtrapApiSender;
+    private final MailtrapApiSender mailtrapApiSender; // <-- Hazlo final aquí
 
     @Value("${QUEUE_URL}")
     private String queueUrl;
