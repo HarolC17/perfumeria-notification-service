@@ -9,15 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @Component
 public class MailtrapApiSender {
 
     @Value("${MAILTRAP_API_TOKEN}")
     private String apiToken;
-
-    @Value("${MAILTRAP_INBOX_ID}")
-    private String inboxId;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -33,7 +29,6 @@ public class MailtrapApiSender {
         payload.put("subject", subject);
         payload.put("text", mensaje);
         payload.put("category", "Notificacion");
-        payload.put("inbox_id", Long.parseLong(inboxId));
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(payload, headers);
 
