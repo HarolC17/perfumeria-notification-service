@@ -1,5 +1,6 @@
 package com.ecommerce.notification.infraestructure.sqs;
 
+import com.ecommerce.notification.infraestructure.api.MailtrapApiSender;
 import com.ecommerce.notification.infraestructure.ses.SesEmailSender;
 import com.ecommerce.notification.infraestructure.smtp.SmtpEmailSender;
 import com.ecommerce.notification.infraestructure.sns.SnsSmsSender;
@@ -26,6 +27,7 @@ public class SqsListener {
     private final ObjectMapper objectMapper;
     private final SnsSmsSender smsSender;
     private final SmtpEmailSender emailSender;
+    private MailtrapApiSender mailtrapApiSender;
 
     @Value("${QUEUE_URL}")
     private String queueUrl;
@@ -51,7 +53,8 @@ public class SqsListener {
                             System.out.println("[NOTIFICACION] Evento recibido y procesado: " + evento);
 
                             smsSender.enviarSms(evento.getMensaje(), evento.getNumeroTelefono());
-                            emailSender.enviarEmail(evento.getEmail(), evento.getTipo(), evento.getMensaje());
+//                            emailSender.enviarEmail(evento.getEmail(), evento.getTipo(), evento.getMensaje());
+                            mailtrapApiSender.enviarEmail(evento.getEmail(), evento.getTipo(), evento.getMensaje());
 
                             sqsClient.deleteMessage(DeleteMessageRequest.builder()
                                     .queueUrl(queueUrl)
